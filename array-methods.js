@@ -33,14 +33,17 @@ const sumOfBankBalances = dataset.bankBalances.map(function (element) {
   and then sum it all up into one value saved to `sumOfInterests`
  */
 const sumOfInterests = dataset.bankBalances.filter(function (element) {
-  if (['WI', 'IL', 'WY', 'GA', 'DE'].includes(element.state)) {
+  if (['WI', 'IL', 'WY', 'GA', 'DE', 'OH'].includes(element.state)) {
     return true
   }
 }).map(function (element) {
-  return element.amount = Math.round(Number(element.amount) + Number(element.amount) * (0.189))
+  return Number(element.amount)
+}).map(function (element) {
+  return Math.round((element * 0.189))
 }).reduce(function (prev, current) {
   return prev + current
-});
+})
+
 console.log(sumOfInterests)
 
 /*
