@@ -44,7 +44,7 @@ const sumOfInterests = dataset.bankBalances.filter(function (element) {
   return prev + current
 })
 
-console.log(sumOfInterests)
+
 
 /*
   aggregate the sum of bankBalance amounts
@@ -62,7 +62,30 @@ console.log(sumOfInterests)
     round this number to the nearest dollar before moving on.
   )
  */
-var stateSums = null;
+
+// const stateSums = (function () {
+//   let stateSumsObject = {};
+//   dataset.bankBalances.forEach(createKey);
+//   function createKey(element) {
+//     if (stateSumsObject.hasOwnProperty(element.state)) {
+//       stateSumsObject[element.state] += Math.round(Number(element.amount));
+//     } else {
+//       stateSumsObject[element.state] = Math.round(Number(element.amount));
+//     }
+//     return stateSumsObject;
+//   }
+//   return stateSumsObject;
+// })();
+
+const stateSums = dataset.bankBalances.reduce(function (prev, current, index, array) {
+  if (prev.hasOwnProperty(current.state)) {
+    prev[current.state] += Math.round(Number(current.amount));
+  } else {
+    prev[current.state] = Math.round(Number(current.amount));
+  }
+  return prev
+}, {})
+
 
 /*
   for all states *NOT* in the following states:
@@ -81,8 +104,25 @@ var stateSums = null;
     round this number to the nearest dollar before moving on.
   )
  */
-var sumOfHighInterests = null;
 
+
+var sumOfHighInterests = Object.entries(stateSums).filter(function (element) {
+  if (['WI', 'IL', 'WY', 'GA', 'DE', 'OH'].includes(element[0])) {
+    return false
+  } else {
+    return true
+  }
+}).map(function (element) {
+  return Math.round(element[1] * 0.189)
+}).reduce(function (prev, current) {
+  if (current > 50000) {
+    return prev + current
+  } else {
+    return prev
+  }
+})
+
+console.log(sumOfHighInterests)
 /*
   set `lowerSumStates` to be an array of two letter state
   abbreviations of each state where the sum of amounts
