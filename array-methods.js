@@ -136,7 +136,7 @@ var lowerSumStates = Object.entries(stateSums).filter(function (element) {
 }).map(function (element) {
   return element[0];
 })
-console.log(lowerSumStates)
+
 /*
   aggregate the sum of each state into one hash table
   `higherStateSums` should be the sum of all states with totals greater than 1,000,000
