@@ -83,7 +83,7 @@ const stateSums = dataset.bankBalances.reduce(function (prev, current, index, ar
   } else {
     prev[current.state] = Math.round(Number(current.amount));
   }
-  return prev
+  return prev;
 }, {})
 
 
@@ -108,33 +108,48 @@ const stateSums = dataset.bankBalances.reduce(function (prev, current, index, ar
 
 var sumOfHighInterests = Object.entries(stateSums).filter(function (element) {
   if (['WI', 'IL', 'WY', 'GA', 'DE', 'OH'].includes(element[0])) {
-    return false
+    return false;
   } else {
-    return true
+    return true;
   }
 }).map(function (element) {
   return Math.round(element[1] * 0.189)
 }).reduce(function (prev, current) {
   if (current > 50000) {
-    return prev + current
+    return prev + current;
   } else {
-    return prev
+    return prev;
   }
-})
+}, 0)
 
-console.log(sumOfHighInterests)
 /*
   set `lowerSumStates` to be an array of two letter state
   abbreviations of each state where the sum of amounts
   in the state is less than 1,000,000
  */
-var lowerSumStates = null;
-
+var lowerSumStates = Object.entries(stateSums).filter(function (element) {
+  if (element[1] < 1000000) {
+    return true;
+  } else {
+    return false;
+  }
+}).map(function (element) {
+  return element[0];
+})
+console.log(lowerSumStates)
 /*
   aggregate the sum of each state into one hash table
   `higherStateSums` should be the sum of all states with totals greater than 1,000,000
  */
-var higherStateSums = null;
+var higherStateSums = Object.entries(stateSums).filter(function (element) {
+  if (element[1] > 1000000) {
+    return true;
+  } else {
+    return false;
+  }
+}).reduce(function (prev, current) {
+  return prev + current[1];
+}, 0)
 
 /*
   from each of the following states:
@@ -144,18 +159,30 @@ var higherStateSums = null;
     Ohio
     Georgia
     Delaware
-
+ 
   Check if all of these states have a sum of account values
   greater than 2,550,000
-
+ 
   if true set `areStatesInHigherStateSum` to `true`
   otherwise set it to `false`
  */
-var areStatesInHigherStateSum = null;
+var areStatesInHigherStateSum = Object.entries(stateSums).filter(function (element) {
+  if (['WI', 'IL', 'WY', 'GA', 'DE', 'OH'].includes(element[0])) {
+    return true;
+  } else {
+    return false;
+  }
+}).every(function (element) {
+  if (element[1] > 2550000) {
+    return true
+  } else {
+    return false
+  }
+})
 
 /*
   Stretch Goal && Final Boss
-
+ 
   set `anyStatesInHigherStateSum` to be `true` if
   any of these states:
     Wisconsin
@@ -167,7 +194,19 @@ var areStatesInHigherStateSum = null;
   have a sum of account values greater than 2,550,000
   otherwise set it to be `false`
  */
-var anyStatesInHigherStateSum = null;
+var anyStatesInHigherStateSum = Object.entries(stateSums).filter(function (element) {
+  if (['WI', 'IL', 'WY', 'GA', 'DE', 'OH'].includes(element[0])) {
+    return true;
+  } else {
+    return false;
+  }
+}).some(function (element) {
+  if (element[1] > 2550000) {
+    return true
+  } else {
+    return false
+  }
+});
 
 
 module.exports = {
