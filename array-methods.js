@@ -1,5 +1,4 @@
 var dataset = require('./dataset.json');
-// console.log(dataset.bankBalances)
 /*
   create an array with accounts from bankBalances that are
   greater than 100000
@@ -10,21 +9,23 @@ var dataset = require('./dataset.json');
 var hundredThousandairs = dataset.bankBalances.filter(function (element) {
   return element.amount > 100000
 })
-// console.log(hundredThousandairs)
 
 // set sumOfBankBalances to be the sum of all value held at `amount` for each bank object
 
 const sumOfBankBalances = dataset.bankBalances.map(function (element) {
-  return Number(element.amount)
-}).reduce(function (prev, current) {
-  return prev + current
+  return Number(element.amount);
 })
+  .reduce(function (prev, current) {
+    return prev + current;
+  })
 
 
 /*
   from each of the following states:
     Wisconsin
-    Illinois
+    Illinoisfunction findEmails(){
+    
+  }
     Wyoming
     Ohio
     Georgia
@@ -36,13 +37,16 @@ const sumOfInterests = dataset.bankBalances.filter(function (element) {
   if (['WI', 'IL', 'WY', 'GA', 'DE', 'OH'].includes(element.state)) {
     return true
   }
-}).map(function (element) {
-  return Number(element.amount)
-}).map(function (element) {
-  return Math.round((element * 0.189))
-}).reduce(function (prev, current) {
-  return prev + current
 })
+  .map(function (element) {
+    return Number(element.amount);
+  })
+  .map(function (element) {
+    return Math.round((element * 0.189));
+  })
+  .reduce(function (prev, current) {
+    return prev + current;
+  })
 
 
 
@@ -63,19 +67,6 @@ const sumOfInterests = dataset.bankBalances.filter(function (element) {
   )
  */
 
-// const stateSums = (function () {
-//   let stateSumsObject = {};
-//   dataset.bankBalances.forEach(createKey);
-//   function createKey(element) {
-//     if (stateSumsObject.hasOwnProperty(element.state)) {
-//       stateSumsObject[element.state] += Math.round(Number(element.amount));
-//     } else {
-//       stateSumsObject[element.state] = Math.round(Number(element.amount));
-//     }
-//     return stateSumsObject;
-//   }
-//   return stateSumsObject;
-// })();
 
 const stateSums = dataset.bankBalances.reduce(function (prev, current, index, array) {
   if (prev.hasOwnProperty(current.state)) {
@@ -113,7 +104,7 @@ var sumOfHighInterests = Object.entries(stateSums).filter(function (element) {
     return true;
   }
 }).map(function (element) {
-  return Math.round(element[1] * 0.189)
+  return Math.round(element[1] * 0.189);
 }).reduce(function (prev, current) {
   if (current > 50000) {
     return prev + current;
@@ -133,9 +124,10 @@ var lowerSumStates = Object.entries(stateSums).filter(function (element) {
   } else {
     return false;
   }
-}).map(function (element) {
-  return element[0];
 })
+  .map(function (element) {
+    return element[0];
+  })
 
 /*
   aggregate the sum of each state into one hash table
@@ -147,9 +139,10 @@ var higherStateSums = Object.entries(stateSums).filter(function (element) {
   } else {
     return false;
   }
-}).reduce(function (prev, current) {
-  return prev + current[1];
-}, 0)
+})
+  .reduce(function (prev, current) {
+    return prev + current[1];
+  }, 0)
 
 /*
   from each of the following states:
@@ -172,13 +165,10 @@ var areStatesInHigherStateSum = Object.entries(stateSums).filter(function (eleme
   } else {
     return false;
   }
-}).every(function (element) {
-  if (element[1] > 2550000) {
-    return true
-  } else {
-    return false
-  }
 })
+  .every(function (element) {
+    return (element[1] > 2550000)
+  })
 
 /*
   Stretch Goal && Final Boss
@@ -195,18 +185,11 @@ var areStatesInHigherStateSum = Object.entries(stateSums).filter(function (eleme
   otherwise set it to be `false`
  */
 var anyStatesInHigherStateSum = Object.entries(stateSums).filter(function (element) {
-  if (['WI', 'IL', 'WY', 'GA', 'DE', 'OH'].includes(element[0])) {
-    return true;
-  } else {
-    return false;
-  }
-}).some(function (element) {
-  if (element[1] > 2550000) {
-    return true
-  } else {
-    return false
-  }
-});
+  return (['WI', 'IL', 'WY', 'GA', 'DE', 'OH'].includes(element[0]))
+})
+  .some(function (element) {
+    return (element[1] > 2550000)
+  });
 
 
 module.exports = {
