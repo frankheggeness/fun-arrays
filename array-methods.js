@@ -17,7 +17,7 @@ const sumOfBankBalances = dataset.bankBalances.map(function (element) {
 })
   .reduce(function (prev, current) {
     return prev + current;
-  })
+  });
 
 
 /*
@@ -35,7 +35,7 @@ const sumOfBankBalances = dataset.bankBalances.map(function (element) {
  */
 const sumOfInterests = dataset.bankBalances.filter(function (element) {
   if (['WI', 'IL', 'WY', 'GA', 'DE', 'OH'].includes(element.state)) {
-    return true
+    return true;
   }
 })
   .map(function (element) {
@@ -46,7 +46,7 @@ const sumOfInterests = dataset.bankBalances.filter(function (element) {
   })
   .reduce(function (prev, current) {
     return prev + current;
-  })
+  });
 
 
 
@@ -111,7 +111,7 @@ var sumOfHighInterests = Object.entries(stateSums).filter(function (element) {
   } else {
     return prev;
   }
-}, 0)
+}, 0);
 
 /*
   set `lowerSumStates` to be an array of two letter state
@@ -127,7 +127,7 @@ var lowerSumStates = Object.entries(stateSums).filter(function (element) {
 })
   .map(function (element) {
     return element[0];
-  })
+  });
 
 /*
   aggregate the sum of each state into one hash table
@@ -142,7 +142,7 @@ var higherStateSums = Object.entries(stateSums).filter(function (element) {
 })
   .reduce(function (prev, current) {
     return prev + current[1];
-  }, 0)
+  }, 0);
 
 /*
   from each of the following states:
@@ -168,7 +168,7 @@ var areStatesInHigherStateSum = Object.entries(stateSums).filter(function (eleme
 })
   .every(function (element) {
     return (element[1] > 2550000)
-  })
+  });
 
 /*
   Stretch Goal && Final Boss
@@ -188,7 +188,7 @@ var anyStatesInHigherStateSum = Object.entries(stateSums).filter(function (eleme
   return (['WI', 'IL', 'WY', 'GA', 'DE', 'OH'].includes(element[0]))
 })
   .some(function (element) {
-    return (element[1] > 2550000)
+    return (element[1] > 2550000);
   });
 
 
